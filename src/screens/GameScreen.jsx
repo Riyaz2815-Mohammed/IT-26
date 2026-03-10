@@ -231,27 +231,34 @@ const FlashChallengeContent = ({ levelData, retryCount = 0, onLock }) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    animation: 'fadeIn 0.3s ease-in'
+                    animation: 'fadeIn 0.2s ease-out'
                 }}>
                     <div style={{
-                        background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)',
-                        border: '3px solid var(--accent-warning)',
-                        borderRadius: 'var(--radius-lg)',
+                        background: 'linear-gradient(135deg, #111111 0%, #000000 100%)',
+                        border: '2px solid var(--accent-warning)',
+                        borderRadius: '0px',
                         padding: '2.5rem',
                         maxWidth: '600px',
                         textAlign: 'center',
-                        boxShadow: '0 0 50px rgba(255, 204, 0, 0.3)'
+                        boxShadow: '0 0 30px rgba(255, 204, 0, 0.15)',
+                        position: 'relative',
+                        transform: 'translateY(15vh) scale(0.95)'
                     }}>
-                        <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>⚠️</div>
-                        <h2 style={{ color: 'var(--accent-warning)', marginBottom: '1.5rem', fontSize: '1.8rem' }}>
+                        <div style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>⚠️</div>
+                        <h2 className="glitch" data-text="MEMORY CHALLENGE AHEAD" style={{
+                            color: 'var(--accent-warning)',
+                            marginBottom: '1.5rem',
+                            fontSize: '1.8rem',
+                            letterSpacing: '2px'
+                        }}>
                             MEMORY CHALLENGE AHEAD
                         </h2>
                         <div style={{
-                            background: 'rgba(255, 204, 0, 0.1)',
+                            background: 'rgba(255, 204, 0, 0.05)',
                             padding: '1.5rem',
-                            borderRadius: 'var(--radius-md)',
+                            borderRadius: '0px',
                             marginBottom: '1.5rem',
-                            border: '1px solid rgba(255, 204, 0, 0.3)'
+                            borderLeft: '4px solid var(--accent-warning)'
                         }}>
                             <p style={{ color: 'var(--text-primary)', fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1rem' }}>
                                 📊 The data will be visible for <strong style={{ color: 'var(--accent-warning)' }}>{adjustedDuration} seconds</strong>
@@ -259,45 +266,48 @@ const FlashChallengeContent = ({ levelData, retryCount = 0, onLock }) => {
                             <p style={{ color: 'var(--text-primary)', fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1rem' }}>
                                 🔒 After that, it will be <strong style={{ color: 'var(--accent-error)' }}>LOCKED</strong>
                             </p>
-                            <p style={{ color: 'var(--text-primary)', fontSize: '1.1rem', lineHeight: '1.6' }}>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6' }}>
                                 🧠 Study carefully and memorize the information!
                             </p>
                         </div>
                         {retryCount > 0 && (
                             <div style={{
-                                background: 'rgba(255, 51, 51, 0.1)',
-                                border: '1px solid var(--accent-error)',
+                                background: 'rgba(255, 51, 51, 0.05)',
+                                borderLeft: '4px solid var(--accent-error)',
                                 padding: '1rem',
-                                borderRadius: 'var(--radius-md)',
-                                marginBottom: '1.5rem'
+                                borderRadius: '0px',
+                                marginBottom: '1.5rem',
+                                textAlign: 'left'
                             }}>
-                                <p style={{ color: 'var(--accent-error)', fontSize: '0.95rem' }}>
-                                    ⚠️ RETRY PENALTY: Time reduced by {retryCount * 2}s (Attempt #{retryCount + 1})
+                                <p style={{ color: 'var(--accent-error)', fontSize: '0.95rem', margin: 0 }}>
+                                    [!] RETRY PENALTY: Time reduced by {retryCount * 2}s (Attempt #{retryCount + 1})
                                 </p>
                             </div>
                         )}
                         <button
                             onClick={() => setShowDisclaimer(false)}
+                            className="btn"
                             style={{
-                                background: 'var(--accent-warning)',
-                                color: '#000',
-                                border: 'none',
+                                background: 'transparent',
+                                color: 'var(--accent-warning)',
+                                border: '2px solid var(--accent-warning)',
                                 padding: '1rem 3rem',
                                 fontSize: '1.2rem',
                                 fontWeight: 'bold',
-                                borderRadius: 'var(--radius-md)',
+                                borderRadius: '0px',
                                 cursor: 'pointer',
-                                transition: 'all 0.3s ease',
+                                transition: 'all 0.2s ease',
                                 textTransform: 'uppercase',
-                                letterSpacing: '1px'
+                                letterSpacing: '2px',
+                                width: '100%'
                             }}
                             onMouseEnter={(e) => {
-                                e.target.style.transform = 'scale(1.05)';
-                                e.target.style.boxShadow = '0 0 20px rgba(255, 204, 0, 0.5)';
+                                e.target.style.background = 'var(--accent-warning)';
+                                e.target.style.color = '#000';
                             }}
                             onMouseLeave={(e) => {
-                                e.target.style.transform = 'scale(1)';
-                                e.target.style.boxShadow = 'none';
+                                e.target.style.background = 'transparent';
+                                e.target.style.color = 'var(--accent-warning)';
                             }}
                         >
                             I'M READY
@@ -427,34 +437,41 @@ const TableQueryFlashContent = ({ levelData, retryCount = 0, onLock }) => {
                     position: 'fixed',
                     top: 0,
                     left: 0,
-                    right: 0,
-                    bottom: 0,
+                    width: '100vw',
+                    height: '100vh',
                     background: 'rgba(0, 0, 0, 0.95)',
                     zIndex: 9999,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    animation: 'fadeIn 0.3s ease-in'
+                    animation: 'fadeIn 0.2s ease-out'
                 }}>
                     <div style={{
-                        background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)',
-                        border: '3px solid var(--accent-warning)',
-                        borderRadius: 'var(--radius-lg)',
+                        background: 'linear-gradient(135deg, #111111 0%, #000000 100%)',
+                        border: '2px solid var(--accent-warning)',
+                        borderRadius: '0px',
                         padding: '2.5rem',
                         maxWidth: '600px',
                         textAlign: 'center',
-                        boxShadow: '0 0 50px rgba(255, 204, 0, 0.3)'
+                        boxShadow: '0 0 30px rgba(255, 204, 0, 0.15)',
+                        position: 'relative',
+                        transform: 'translateY(5vh) scale(0.95)'
                     }}>
-                        <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>⚠️</div>
-                        <h2 style={{ color: 'var(--accent-warning)', marginBottom: '1.5rem', fontSize: '1.8rem' }}>
+                        <div style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>⚠️</div>
+                        <h2 className="glitch" data-text="MEMORY CHALLENGE AHEAD" style={{
+                            color: 'var(--accent-warning)',
+                            marginBottom: '1.5rem',
+                            fontSize: '1.8rem',
+                            letterSpacing: '2px'
+                        }}>
                             MEMORY CHALLENGE AHEAD
                         </h2>
                         <div style={{
-                            background: 'rgba(255, 204, 0, 0.1)',
+                            background: 'rgba(255, 204, 0, 0.05)',
                             padding: '1.5rem',
-                            borderRadius: 'var(--radius-md)',
+                            borderRadius: '0px',
                             marginBottom: '1.5rem',
-                            border: '1px solid rgba(255, 204, 0, 0.3)'
+                            borderLeft: '4px solid var(--accent-warning)'
                         }}>
                             <p style={{ color: 'var(--text-primary)', fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1rem' }}>
                                 📑 The query will be visible for <strong style={{ color: 'var(--accent-warning)' }}>{adjustedDuration} seconds</strong>
@@ -462,37 +479,48 @@ const TableQueryFlashContent = ({ levelData, retryCount = 0, onLock }) => {
                             <p style={{ color: 'var(--text-primary)', fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '1rem' }}>
                                 🔒 After that, the query will be <strong style={{ color: 'var(--accent-error)' }}>LOCKED</strong>
                             </p>
-                            <p style={{ color: 'var(--text-primary)', fontSize: '1.1rem', lineHeight: '1.6' }}>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6' }}>
                                 🧠 Study the query carefully. You will need to apply it to the table below!
                             </p>
                         </div>
                         {retryCount > 0 && (
                             <div style={{
-                                background: 'rgba(255, 51, 51, 0.1)',
-                                border: '1px solid var(--accent-error)',
+                                background: 'rgba(255, 51, 51, 0.05)',
+                                borderLeft: '4px solid var(--accent-error)',
                                 padding: '1rem',
-                                borderRadius: 'var(--radius-md)',
-                                marginBottom: '1.5rem'
+                                borderRadius: '0px',
+                                marginBottom: '1.5rem',
+                                textAlign: 'left'
                             }}>
-                                <p style={{ color: 'var(--accent-error)', fontSize: '0.95rem' }}>
-                                    ⚠️ RETRY PENALTY: Time reduced by {retryCount * 2}s (Attempt #{retryCount + 1})
+                                <p style={{ color: 'var(--accent-error)', fontSize: '0.95rem', margin: 0 }}>
+                                    [!] RETRY PENALTY: Time reduced by {retryCount * 2}s (Attempt #{retryCount + 1})
                                 </p>
                             </div>
                         )}
                         <button
                             onClick={() => setShowDisclaimer(false)}
+                            className="btn"
                             style={{
-                                background: 'var(--accent-warning)',
-                                color: '#000',
-                                border: 'none',
+                                background: 'transparent',
+                                color: 'var(--accent-warning)',
+                                border: '2px solid var(--accent-warning)',
                                 padding: '1rem 3rem',
                                 fontSize: '1.2rem',
                                 fontWeight: 'bold',
-                                borderRadius: 'var(--radius-md)',
+                                borderRadius: '0px',
                                 cursor: 'pointer',
-                                transition: 'all 0.3s ease',
+                                transition: 'all 0.2s ease',
                                 textTransform: 'uppercase',
-                                letterSpacing: '1px'
+                                letterSpacing: '2px',
+                                width: '100%'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.target.style.background = 'var(--accent-warning)';
+                                e.target.style.color = '#000';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.background = 'transparent';
+                                e.target.style.color = 'var(--accent-warning)';
                             }}
                         >
                             I'M READY
@@ -1243,8 +1271,8 @@ const FeedbackOverlay = ({ type, message, onRetry }) => {
             position: 'fixed',
             top: 0,
             left: 0,
-            width: '100%',
-            height: '100%',
+            right: 0,
+            bottom: 0,
             backgroundColor: 'rgba(0, 0, 0, 0.85)',
             backdropFilter: 'blur(10px)',
             zIndex: 9999,
@@ -1265,9 +1293,9 @@ const FeedbackOverlay = ({ type, message, onRetry }) => {
                 textAlign: 'center',
                 padding: '3rem',
                 border: `2px solid ${isSuccess ? 'var(--accent-primary)' : 'var(--accent-error)'}`,
-                borderRadius: 'var(--radius-lg)',
-                boxShadow: `0 0 50px ${isSuccess ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 51, 51, 0.2)'}`,
-                background: 'rgba(10, 10, 10, 0.9)',
+                borderRadius: '0px',
+                boxShadow: `0 0 30px ${isSuccess ? 'rgba(0, 255, 65, 0.15)' : 'rgba(255, 51, 51, 0.15)'}`,
+                background: 'linear-gradient(135deg, #111111 0%, #000000 100%)',
                 maxWidth: '90%',
                 width: '500px',
                 animation: 'slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
@@ -1300,14 +1328,28 @@ const FeedbackOverlay = ({ type, message, onRetry }) => {
                 {!isSuccess && (
                     <button
                         onClick={onRetry}
-                        className="btn btn-primary"
+                        className="btn"
                         style={{
+                            background: 'transparent',
+                            color: 'var(--accent-error)',
+                            border: '2px solid var(--accent-error)',
                             padding: '1rem 3rem',
                             fontSize: '1.2rem',
-                            background: 'var(--accent-error)',
-                            border: 'none',
-                            color: 'white',
-                            boxShadow: '0 0 20px rgba(255, 51, 51, 0.4)'
+                            fontWeight: 'bold',
+                            borderRadius: '0px',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                            textTransform: 'uppercase',
+                            letterSpacing: '2px',
+                            width: '100%'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.target.style.background = 'var(--accent-error)';
+                            e.target.style.color = '#fff';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.target.style.background = 'transparent';
+                            e.target.style.color = 'var(--accent-error)';
                         }}
                     >
                         RE-INITIALIZE ATTEMPT_
@@ -1491,13 +1533,15 @@ const GameScreen = () => {
                 <div style={{
                     maxWidth: '600px',
                     width: '90%',
-                    background: 'var(--bg-secondary)',
-                    border: '1px solid var(--accent-primary)',
+                    background: 'linear-gradient(135deg, #111111 0%, #000000 100%)',
+                    border: '2px solid var(--accent-primary)',
+                    borderRadius: '0px',
                     padding: '3rem',
                     textAlign: 'center',
-                    boxShadow: '0 0 50px rgba(0, 255, 65, 0.2)',
+                    boxShadow: '0 0 30px rgba(0, 255, 65, 0.15)',
                     position: 'relative',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    animation: 'slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                 }}>
                     {/* Decorative Elements */}
                     <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '4px', background: 'var(--accent-primary)' }}></div>
@@ -1515,21 +1559,49 @@ const GameScreen = () => {
                         // {content.title}
                     </h2>
 
-                    <div style={{ textAlign: 'left', background: 'rgba(0,0,0,0.3)', padding: '1.5rem', borderRadius: '4px', marginBottom: '2rem' }}>
+                    <div style={{
+                        textAlign: 'left',
+                        background: 'rgba(0, 255, 65, 0.05)',
+                        padding: '1.5rem',
+                        borderRadius: '0px',
+                        marginBottom: '2rem',
+                        borderLeft: '4px solid var(--accent-primary)'
+                    }}>
                         <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-                            <strong style={{ color: '#fff' }}>OBJECTIVE:</strong><br />
-                            {content.mission}
+                            <strong style={{ color: 'var(--accent-primary)' }}>OBJECTIVE:</strong><br />
+                            <span style={{ color: '#fff' }}>{content.mission}</span>
                         </p>
                         <p style={{ color: 'var(--text-secondary)' }}>
-                            <strong style={{ color: '#fff' }}>DIRECTIVE:</strong><br />
-                            {content.task}
+                            <strong style={{ color: 'var(--accent-primary)' }}>DIRECTIVE:</strong><br />
+                            <span style={{ color: '#fff' }}>{content.task}</span>
                         </p>
                     </div>
 
                     <button
-                        className="btn btn-primary"
+                        className="btn"
                         onClick={() => setShowBriefing(false)}
-                        style={{ width: '100%', fontSize: '1.2rem', padding: '1rem' }}
+                        style={{
+                            background: 'transparent',
+                            color: 'var(--accent-primary)',
+                            border: '2px solid var(--accent-primary)',
+                            padding: '1rem 3rem',
+                            fontSize: '1.2rem',
+                            fontWeight: 'bold',
+                            borderRadius: '0px',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                            textTransform: 'uppercase',
+                            letterSpacing: '2px',
+                            width: '100%'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.target.style.background = 'var(--accent-primary)';
+                            e.target.style.color = '#000';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.target.style.background = 'transparent';
+                            e.target.style.color = 'var(--accent-primary)';
+                        }}
                     >
                         INITIATE PROTOCOL
                     </button>

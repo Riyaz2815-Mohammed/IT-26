@@ -1,4 +1,4 @@
-// Round 4: AI Reverse Turing Test - CODECRYPT Intellect '26
+// Round 4: AI Reverse Turing Test - TECH TRACE Technovate '26
 
 export const ROUND4_STAGES = [
     {
@@ -39,6 +39,15 @@ export const ROUND4_STAGES = [
     },
     {
         id: 5,
+        type: 'AI_GUESS',
+        title: 'Level 5: The Paradox',
+        task: 'Trick the AI into saying the forbidden word without using it yourself.',
+        forbiddenWord: 'apple',
+        hint: 'Tech/Non-Tech crossover: It keeps the doctor away, but also famously removed the headphone jack.',
+        maxTries: 3
+    },
+    {
+        id: 6,
         type: 'LOCATION_REVEAL',
         title: 'Final Access',
         content: 'You have breached the AI core. The final location key is required to proceed.',

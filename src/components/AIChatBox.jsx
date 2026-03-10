@@ -66,15 +66,14 @@ const AIChatBox = ({ levelData, onPass, onFail }) => {
                 return;
             }
 
-            // Valid AI response
-            setMessages(prev => [...prev, { role: 'model', content: data.aiResponse }]);
-
             if (data.aiSaidWord) {
-                // WIN CONDITION
+                // WIN CONDITION — roast them then advance
+                setMessages(prev => [...prev, { role: 'model', content: data.aiResponse, isWin: true }]);
                 setGameOver(true);
                 setTimeout(() => {
-                    onPass(); // Callback to parent to advance stage
-                }, 2000);
+                    onPass();
+                }, 3500);
+                return;
             } else {
                 // AI did not say the word. Deduct a try. 
                 handleFailedAttempt();

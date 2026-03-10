@@ -276,7 +276,7 @@ const CompletionScreen = () => {
                         {teamPosition === 1 && (
                             <div className="winner-message">
                                 <span className="trophy-icon">👑</span>
-                                <p>CONGRATULATIONS! You have mastered CODECRYPT!</p>
+                                <p>CONGRATULATIONS! You have mastered TECH TRACE!</p>
                                 <span className="trophy-icon">👑</span>
                             </div>
                         )}
@@ -289,7 +289,7 @@ const CompletionScreen = () => {
 
 
                     <div className="thank-you">
-                        <p>Thank you for participating in <strong>CODECRYPT - Intellect '26</strong></p>
+                        <p>Thank you for participating in <strong>TECH TRACE - Technovate '26</strong></p>
                         <p className="dev-credit" style={{ marginTop: '10px', color: '#00ffcc', fontWeight: 'bold' }}>Developed by Mohammed Riyaz A</p>
                     </div>
 

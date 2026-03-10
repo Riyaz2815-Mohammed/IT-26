@@ -14,8 +14,8 @@ const WelcomeScreen = () => {
 
     return (
         <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '80vh' }}>
-            <h1 className="glitch" data-text="CODECRYPT" style={{ fontSize: '4rem', marginBottom: '2rem', color: 'var(--accent-primary)', letterSpacing: '0.2em' }}>
-                CODECRYPT
+            <h1 className="glitch" data-text="TECH TRACE" style={{ fontSize: '4rem', marginBottom: '2rem', color: 'var(--accent-primary)', letterSpacing: '0.2em' }}>
+                TECH TRACE
             </h1>
 
             <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
@@ -97,7 +97,7 @@ const WelcomeScreen = () => {
             </div>
 
             <div style={{ marginTop: '2rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                SECURE CONNECTION ESTABLISHED // INTELLECT '26
+                SECURE CONNECTION ESTABLISHED // TECHNOVATE '26
             </div>
         </div>
     );

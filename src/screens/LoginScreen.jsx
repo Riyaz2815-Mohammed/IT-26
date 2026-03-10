@@ -71,8 +71,8 @@ const LoginScreen = ({ onLogin }) => {
 
             <div className="login-card">
                 <div className="login-header">
-                    <h1 className="login-title">CODECRYPT</h1>
-                    <p className="login-subtitle">// INTELLECT '26</p>
+                    <h1 className="login-title">TECH TRACE</h1>
+                    <p className="login-subtitle">// TECHNOVATE '26</p>
                     <div className="login-divider"></div>
                 </div>
 
