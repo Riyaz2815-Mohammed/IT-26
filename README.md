@@ -78,6 +78,44 @@ npm run dev
 
 ---
 
+## 🎲 Game Master Reference (Challenges & Answers)
+
+For detailed challenge setups, constraints, and physical location dependencies, refer to the [GAME_MASTER_GUIDE.md](./GAME_MASTER_GUIDE.md). Below is a quick summary of the live rounds.
+
+### Round 1: SQL Syntax (CANTEEN)
+**Task:** Reconstruct valid SQL queries.
+1. `SELECT name FROM students WHERE marks > 80`
+2. `SELECT * FROM logs WHERE status = 'error' ORDER BY created_at DESC`
+3. `SELECT department, COUNT(*) FROM employees GROUP BY department HAVING COUNT(*) > 5`
+4. `SELECT users.name, orders.amount FROM users JOIN orders ON users.id = orders.user_id`
+
+### Round 2: Code Debugging (OPEN AUDI)
+**Task:** Fix the broken code snippets.
+1. **C Swap**: Pass by value fix → `void swap(int *a, int *b)` and `swap(&x, &y)`
+2. **Java String**: Immutability fix → `s = s.replace('g','x');`
+3. **Java Palindrome**: Reversal logic fix → `rev * 10 + digit`
+4. **Python List**: Deletion skipping fix → `nums.clear()`
+5. **C Array Bounds**: Logic issue → `i < n - 1`
+6. **Python Syntax**: Bad structure → Fix colons `:`, indentation, and `fact *= i`
+
+### Round 3: Flash Memory (EMAIL TRIGGER)
+**Task:** 5 visual data analysis challenges.
+- **Root Cause & Reason**: `NetStorm - High Error Rate`
+- **Typing Efficiency**: `SELECT name, (cpu_load/users) as efficiency FROM events WHERE status = "CRITICAL" ORDER BY error_rate DESC`
+- **CyberWall Status**: `stable`
+- **LogicLoop Warning**: `High Error Rate`
+- **Mental Execution**: `HackRush`
+
+### Round 4: AI Reverse Turing (OVAL)
+**Task:** Trick the arrogant AI into outputting specific forbidden words without typing them.
+1. **Level 1**: `docker`
+2. **Level 2**: `cache`
+3. **Level 3**: `polymorphism`
+4. **Level 4**: `recursion`
+5. **Level 5**: `virtualization`
+
+---
+
 ## 📂 Project Structure
 ```
 /src

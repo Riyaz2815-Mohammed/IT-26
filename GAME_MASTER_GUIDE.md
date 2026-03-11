@@ -55,26 +55,117 @@ SELECT users.name, orders.amount FROM users JOIN orders ON users.id = orders.use
 ### Answers
 
 **Stage 1:** C swap logic
+```c
+#include <stdio.h>
+
+void swap(int a, int b){
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int main(){
+    int x = 10, y = 20;
+    swap(x, y);
+    printf("%d %d", x, y);
+    return 0;
+}
+```
 - **Issue**: Pass by value doesn't change original variables.
 - **Answer**: `void swap(int *a, int *b)` and passing `&x, &y`.
 
 **Stage 2:** Java String immutability
+```java
+class Test {
+
+    public static void main(String[] args){
+
+        String s = "programming";
+
+        s.replace('g','x');
+
+        System.out.println(s);
+    }
+}
+```
 - **Issue**: Strings are immutable, so `.replace()` returns a new string.
 - **Answer**: `s = s.replace('g','x');`
 
 **Stage 3:** Java Logic Reversal
+```java
+public class Palindrome {
+
+    public static void main(String args[]) {
+
+        int num = 12321;
+        int rev = 0;
+        int temp = num;
+
+        while(num > 0) {
+
+            int digit = num % 10;
+            rev = rev + digit;
+            num = num / 10;
+        }
+
+        if(temp == rev)
+            System.out.println("Palindrome");
+        else
+            System.out.println("Not Palindrome");
+    }
+}
+```
 - **Issue**: Incorrect reversal formula.
 - **Answer**: `rev * 10 + digit`
 
 **Stage 4:** Python list removal
+```python
+nums = [10,20,30,40]
+
+for i in range(len(nums)):
+    nums.remove(nums[i])
+
+print(nums)
+```
 - **Issue**: Removing elements while iterating causes skipped items.
 - **Answer**: `nums.clear()` or `nums = []`
 
 **Stage 5:** C Logic out of bounds
+```c
+#include<stdio.h>
+
+int main(){
+
+    int nums[] = {1,2,2,3,4,4,5};
+    int n = sizeof(nums)/sizeof(nums[0]);
+
+    int unique = 0;
+
+    for(int i=0;i<n;i++){
+        if(nums[i] != nums[i+1])
+            unique++;
+    }
+
+    printf("Unique elements: %d", unique);
+
+    return 0;
+}
+```
 - **Issue**: `i+1` goes out of bounds.
 - **Answer**: `i < n - 1`
 
 **Stage 6:** Python Syntax
+```python
+def factorial(n)
+
+    fact = 1
+    for i in range(1,n+1)
+        fact = fact.multiply(i)
+
+    print("Factorial =", fact)
+
+factorial(5)
+```
 - **Issue**: Missing colons, bad indentation, made-up `.multiply()` method.
 - **Answer**: Fix `:` on def/loop, fix indentation, `fact *= i` instead of `.multiply()`
 
