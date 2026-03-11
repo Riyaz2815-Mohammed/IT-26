@@ -1,4 +1,4 @@
-# 🔐 CODECRYPT // INTELLECT '26
+# 🔐 TECH TRACE // TECHNOVATE '26
 ### The Ultimate Cinematic Technical CTF Experience
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -9,7 +9,7 @@
 ---
 
 ## 🚀 Overview
-**CodeCrypt** is a high-fidelity, hacker-themed Capture The Flag (CTF) platform built for **Intellect '26**. It simulates a critical system breach where players must use their technical skills to navigate through cryptographic puzzles, SQL injections, data forensics, and high-pressure logic challenges.
+**TECH TRACE** is a high-fidelity, hacker-themed Capture The Flag (CTF) platform built for **Technovate '26**. It simulates a critical system breach where players must use their technical skills to navigate through cryptographic puzzles, SQL injections, data forensics, and high-pressure logic challenges.
 
 Designed with a **cinematic dark-mode UI**, real-time leaderboards, and branching game paths, CodeCrypt delivers an immersive competitive experience for developers and hackers alike.
 
@@ -89,4 +89,4 @@ npm run dev
 
 ---
 
-_Built with ❤️ for INTELLECT '26_
+_Built with ❤️ for TECHNOVATE '26_

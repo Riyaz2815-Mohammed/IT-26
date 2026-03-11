@@ -1,4 +1,4 @@
-# 🎮 CODECRYPT - Game Master Reference Guide
+# 🎮 TECH TRACE - Game Master Reference Guide
 
 ## 📋 Quick Reference
 
@@ -298,4 +298,4 @@ For technical issues during the event:
 
 **Last Updated**: 2026-01-31  
 **Version**: 1.0  
-**Event**: CODECRYPT Intellect '26
+**Event**: TECH TRACE Technovate '26

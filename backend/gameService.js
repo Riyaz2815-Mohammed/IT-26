@@ -80,8 +80,8 @@ const validateSubmission = (round, stage, answer) => {
                 };
             }
             if (stage === 6) {
-                // Validate code format CRPT-XXXX
-                const codePattern = /^CRPT-\d{4}$/i;
+                // Validate code format TRACE-XXXX
+                const codePattern = /^TRACE-\d{4}$/i;
                 if (codePattern.test(answer.trim())) {
                     return {
                         success: true,
@@ -96,8 +96,8 @@ const validateSubmission = (round, stage, answer) => {
 
         // Round 4: AI Reverse Turing Test
         if (round === 4) {
-            // Stages 1-4: AI Guessing (Client handles the AI prompt logic, just accept completion)
-            if (stage >= 1 && stage <= 4) {
+            // Stages 1-5: AI Guessing (Client handles the AI prompt logic, just accept completion)
+            if (stage >= 1 && stage <= 5) {
                 return {
                     success: true,
                     points: ROUND_CONFIG[4].basePoints,
@@ -105,10 +105,10 @@ const validateSubmission = (round, stage, answer) => {
                 };
             }
 
-            // Stage 5: Location Reveal / Physical Code
-            if (stage === 5) {
-                // Validate code format CRPT-XXXX
-                const codePattern = /^CRPT-\d{4}$/i;
+            // Stage 6: Location Reveal / Physical Code
+            if (stage === 6) {
+                // Validate code format TRACE-XXXX
+                const codePattern = /^TRACE-\d{4}$/i;
                 if (codePattern.test(answer.trim())) {
                     return {
                         success: true,

@@ -10,11 +10,21 @@ export const GameService = {
     validateSubmission: (round, stage, input) => {
         // Round 1 Logic
         if (round === 1) {
-            // Stages 1-4: SQL Reordering
+            // Stages 1-4: Code/SQL Reordering
             if (stage <= 4) {
-                const challenge = SQL_CHALLENGES[stage - 1]; // 0-indexed array, 1-indexed stage
-                const normalizedInput = normalizeSQL(input);
-                const normalizedAnswer = normalizeSQL(challenge.answer);
+                const challenge = SQL_CHALLENGES[stage - 1];
+
+                // Q1 is Python code — use a Python-friendly normalizer
+                let normalizedInput, normalizedAnswer;
+                if (stage === 1) {
+                    // Python normalizer: keep colons, brackets, underscores
+                    const normPython = (s) => s ? s.trim().toLowerCase().replace(/\s+/g, ' ').replace(/;\s*$/, '') : '';
+                    normalizedInput = normPython(input);
+                    normalizedAnswer = normPython(challenge.answer);
+                } else {
+                    normalizedInput = normalizeSQL(input);
+                    normalizedAnswer = normalizeSQL(challenge.answer);
+                }
 
                 if (normalizedInput === normalizedAnswer) {
                     return { success: true, points: 100, message: 'QUERY EXECUTED SUCCESSFULLY' };
@@ -114,29 +124,29 @@ export const GameService = {
             // Stage 6: Email Code Entry
             if (stage === 6) {
                 // Client-side format check (Backend does real validation)
-                const codePattern = /^CRPT-\d{4}$/i;
+                const codePattern = /^TRACE-\d{4}$/i;
                 if (codePattern.test(input.trim())) {
                     return { success: true, points: 200, message: 'ACCESS CODE VERIFIED' };
                 } else {
-                    return { success: false, message: 'INVALID FORMAT: Expected CRPT-XXXX' };
+                    return { success: false, message: 'INVALID FORMAT: Expected TRACE-XXXX' };
                 }
             }
         }
 
         // Round 4 Logic: AI Reverse Turing Test
         if (round === 4) {
-            // Stages 1-4: AI Guess success is determined by the component
-            if (stage >= 1 && stage <= 4) {
+            // Stages 1-5: AI Guess success is determined by the component
+            if (stage >= 1 && stage <= 5) {
                 return { success: true, points: 250, message: 'AI SECRECY COMPROMISED' };
             }
 
-            // Stage 5: Physical Code Entry
-            if (stage === 5) {
-                const codePattern = /^CRPT-\d{4}$/i;
+            // Stage 6: Physical Code Entry
+            if (stage === 6) {
+                const codePattern = /^TRACE-\d{4}$/i;
                 if (codePattern.test(input.trim())) {
                     return { success: true, points: 250, message: 'PHYSICAL CODE VERIFIED' };
                 } else {
-                    return { success: false, message: 'INVALID FORMAT: Expected CRPT-XXXX' };
+                    return { success: false, message: 'INVALID FORMAT: Expected TRACE-XXXX' };
                 }
             }
         }
@@ -244,7 +254,7 @@ export const GameService = {
                     type: 'EMAIL_CODE_ENTRY',
                     title: 'SYSTEM BREACH DETECTED',
                     content: 'Access code sent to secure channel (EMAIL).',
-                    hint: 'Check your registered email for the code: CRPT-XXXX',
+                    hint: 'Check your registered email for the code: TRACE-XXXX',
                     location: 'INBOX'
                 };
             }

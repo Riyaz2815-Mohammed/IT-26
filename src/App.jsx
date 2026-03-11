@@ -88,8 +88,8 @@ function App() {
             color: 'var(--text-primary)',
             letterSpacing: '0.1em',
             fontSize: '1.2rem'
-          }} className="glitch" data-text="CODECRYPT">
-            CODECRYPT <span style={{ color: 'var(--accent-primary)', fontSize: '0.7em', fontWeight: 'normal' }}>// INTELLECT '26</span>
+          }} className="glitch" data-text="TECH TRACE">
+            TECH TRACE <span style={{ color: 'var(--accent-primary)', fontSize: '0.7em', fontWeight: 'normal' }}>// TECHNOVATE '26</span>
           </div>
 
           {state.teamId && (

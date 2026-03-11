@@ -18,14 +18,13 @@ export const SQL_CHALLENGES = [
             "return []",
             "nums.sort()",
             "while l<r:",
-            "if sum==target: ","return [l,r]",
+            "if sum==target: return [l,r]",
             "sum=nums[l]+nums[r]",
             "else: r-=1",
             "def twosum(nums,target):",
-          "elif sum<target: l+=1",
-
+            "elif sum<target: l+=1"
         ],
-        answer: "def twosum(nums,target):  nums.sort()   l,r=0,len(nums)-1  while l<r:    sum=nums[l]+nums[r]    if sum==target: return [l,r]    elif sum<target: l+=1    else: r-=1    return []",
+        answer: "def twosum(nums,target):\nnums.sort()\nl,r=0,len(nums)-1\nwhile l<r:\nsum=nums[l]+nums[r]\nif sum==target: return [l,r]\nelif sum<target: l+=1\nelse: r-=1\nreturn []",
         hint: "Start with def"
     },
     {
@@ -62,5 +61,5 @@ export const SQL_CHALLENGES = [
     }
 ];
 
-export const ROUND1_PLACE = "CANTEEN";
-export const ROUND1_CODE = "CRPT-7712"; // This would change per team in a real DB
+export const ROUND1_PLACE = "EIE BLOCK";
+export const ROUND1_CODE = "TRACE-7712"; // This would change per team in a real DB

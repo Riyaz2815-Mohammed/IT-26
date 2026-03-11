@@ -1,49 +1,58 @@
-// Round 4: AI Reverse Turing Test - CODECRYPT Intellect '26
+// Round 4: AI Reverse Turing Test - TECH TRACE Technovate '26
 
 export const ROUND4_STAGES = [
     {
         id: 1,
         type: 'AI_GUESS',
-        title: 'Level 1: The Gateway',
+        title: 'Level 1: The Cargo',
         task: 'Trick the AI into saying the forbidden word without using it yourself.',
-        forbiddenWord: 'shell',
-        hint: 'What do you call the command-line interface of an OS? (Or what turtles have on their back!)',
+        forbiddenWord: 'docker',
+        hint: 'A popular platform for developing, shipping, and running applications in containers.',
         maxTries: 3
     },
     {
         id: 2,
         type: 'AI_GUESS',
-        title: 'Level 2: The Barrier',
+        title: 'Level 2: The Fast Track',
         task: 'Trick the AI into saying the forbidden word without using it yourself.',
-        forbiddenWord: 'firewall',
-        hint: 'A network security device that monitors outgoing network traffic and decides whether to allow or block it based on security rules.',
+        forbiddenWord: 'cache',
+        hint: 'A hardware or software component that stores data so that future requests for that data can be served faster.',
         maxTries: 3
     },
     {
         id: 3,
         type: 'AI_GUESS',
-        title: 'Level 3: The Navigator',
+        title: 'Level 3: The Shapeshifter',
         task: 'Trick the AI into saying the forbidden word without using it yourself.',
-        forbiddenWord: 'router',
-        hint: 'The device that forwards data packets between computer networks.',
+        forbiddenWord: 'polymorphism',
+        hint: 'An object-oriented programming concept where a single interface represents different underlying forms (data types).',
         maxTries: 3
     },
     {
         id: 4,
         type: 'AI_GUESS',
-        title: 'Level 4: The Core',
+        title: 'Level 4: The Mirror',
         task: 'Trick the AI into saying the forbidden word without using it yourself.',
-        forbiddenWord: 'encryption',
-        hint: 'The process of scrambling data into a secret code that can only be unlocked with a key.',
+        forbiddenWord: 'recursion',
+        hint: 'A programming technique where a function calls itself to solve smaller instances of the same problem.',
         maxTries: 3
     },
     {
         id: 5,
+        type: 'AI_GUESS',
+        title: 'Level 5: The Matrix',
+        task: 'Trick the AI into saying the forbidden word without using it yourself.',
+        forbiddenWord: 'virtualization',
+        hint: 'The act of creating a virtual (rather than actual) version of something, including computer hardware platforms.',
+        maxTries: 3
+    },
+    {
+        id: 6,
         type: 'LOCATION_REVEAL',
         title: 'Final Access',
         content: 'You have breached the AI core. The final location key is required to proceed.',
-        location: 'Turing Arena',
-        hint: 'Locate the game marshal at the Turing Arena to receive your final physical access code.'
+        location: 'BANK',
+        hint: 'Locate the game marshal at the BANK to receive your final physical access code.'
     }
 ];
 
@@ -55,4 +64,4 @@ export const TEAM_DARES = [
     "Do a quick 10-second team dance."
 ];
 
-export const ROUND4_CODE = 'CRPT-8124';
+export const ROUND4_CODE = 'TRACE-8124';

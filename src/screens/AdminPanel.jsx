@@ -355,7 +355,7 @@ const AdminPanel = () => {
         <div className="admin-container">
             {/* ... header ... */}
             <div className="admin-header">
-                <h1>🔐 CODECRYPT Admin Panel</h1>
+                <h1>🔐 TECH TRACE Admin Panel</h1>
                 <p>Manage teams and credentials</p>
                 <button onClick={handleLogout} className="admin-logout-btn">LOGOUT</button>
             </div>

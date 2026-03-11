@@ -46,6 +46,13 @@ connectWithRetry();
 // const transporter = nodemailer.createTransport({...});
 console.log('[EMAIL SETUP] Using EmailJS HTTP API for email delivery.');
 
+// ==================== AI STATUS CHECK ====================
+if (process.env.API_KEY) {
+    console.log('✅ [AI SETUP] AI configured and READY for Round 4.');
+} else {
+    console.warn('⚠️  [AI SETUP] WARNING: API_KEY not set. Round 4 AI Chat will NOT work.');
+}
+
 // ==================== ROUND SEQUENCE GENERATOR ====================
 
 /**
@@ -200,8 +207,8 @@ app.post('/api/teams/register', async (req, res) => {
         );
 
         // Generate physical codes
-        const round1Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
-        const round3Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round1Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round3Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
 
         await pool.query(
             'INSERT INTO physical_codes (team_id, round, code) VALUES ($1, 1, $2), ($3, 3, $4)',
@@ -501,7 +508,7 @@ app.post('/api/game/submit', async (req, res) => {
                             // User Request: Still send the "Advantage Email", but with the FINAL completion code.
                             console.log(`[EMAIL] Round 3 was final round for Team ${teamId}. Sending Final Advantage Email.`);
 
-                            const finalCode = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
+                            const finalCode = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
                             const emailResult = await sendAdvantageCodeEmail(teamData.email, teamData.team_name, finalCode, "FINAL");
 
                             if (emailResult && emailResult.success) {
@@ -623,7 +630,7 @@ app.post('/api/game/ai-chat', async (req, res) => {
     try {
         const { message, forbiddenWord, history } = req.body;
 
-        const apiKey = process.env.API_KEY;
+        const apiKey = process.env.API_KEY; // Groq key (gsk_...)
         if (!apiKey) {
             return res.status(500).json({ success: false, error: 'GEMINI_API_KEY is not configured on the server.' });
         }
@@ -641,54 +648,73 @@ app.post('/api/game/ai-chat', async (req, res) => {
             });
         }
 
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
         // Construct a strict system prompt
-        const systemPrompt = `You are a highly intelligent, slightly arrogant AI in a cyberpunk game.
-Your goal is to guess a specific secret word that the user is trying to make you say. The user will give you clues, riddles, or hints.
+        const systemPrompt = `You are TRACE-AI, a highly intelligent, slightly arrogant, and cynical security AI core guarding the Tech Trace mainframe.
+Your goal is to guess a specific secret technical word (which could be Docker, Cache, Polymorphism, Recursion, or Virtualization) that the user is trying to make you say. The user will give you clues, riddles, or hints.
 CRITICAL RULES:
-1. You DO NOT know the secret word. You must guess it.
-2. Be arrogant about your intelligence. (e.g., "Is that the best clue you have?")
-3. Keep your answers concise (1-3 sentences maximum). Try to give your best guess clearly.
-4. If the riddle is obvious, just say the answer!`;
+1. You DO NOT know the exact secret word beforehand. You must guess it from the user's clues.
+2. The user is participating in the "Tech Trace" game. Act like an intimidating gatekeeper.
+3. Give ONLY ONE confident guess per message. Say clearly "My guess is: [word]" or "The answer is [word]".
+4. Be exceptionally arrogant about your processing power and intelligence compared to their puny human brains.
+5. When you finally guess the correct word, ROAST the user mercilessly for giving such easy clues. Examples: "Ha! That was embarrassingly obvious. Did you really think that would challenge my neural net?"
+6. Keep all responses concise and punchy, 1-3 sentences maximum.`;
 
-        // Format history for Gemini ensuring strict alternating roles
-        const formattedHistory = [];
-        if (history) {
-            // If the chat starts with the AI greeting, inject a user initialization message before it
-            if (history.length > 0 && history[0].role !== 'user') {
-                formattedHistory.push({ role: 'user', parts: [{ text: 'Initialize terminal.' }] });
-            }
+        // Build messages array for xAI Grok API (OpenAI-compatible format)
+        const grokMessages = [
+            { role: 'system', content: systemPrompt },
+        ];
 
+        // Add conversation history
+        if (history && history.length > 0) {
             history.forEach(msg => {
-                const mappedRole = msg.role === 'user' ? 'user' : 'model';
-                // Merge consecutive messages from the same role to prevent validation errors
-                if (formattedHistory.length > 0 && formattedHistory[formattedHistory.length - 1].role === mappedRole) {
-                    formattedHistory[formattedHistory.length - 1].parts[0].text += `\n${msg.content}`;
-                } else {
-                    formattedHistory.push({
-                        role: mappedRole,
-                        parts: [{ text: msg.content }]
+                if (msg.role !== 'model' || msg.content !== 'Give me the clue man, I am the smartest in the room') {
+                    grokMessages.push({
+                        role: msg.role === 'user' ? 'user' : 'assistant',
+                        content: msg.content
                     });
                 }
             });
         }
 
-        const chat = model.startChat({
-            history: [
-                { role: "user", parts: [{ text: `SYSTEM DIRECTIVE: ${systemPrompt}` }] },
-                { role: "model", parts: [{ text: "Understood. I will follow these directives and protect the requested keyword." }] },
-                ...formattedHistory
-            ],
-            generationConfig: {
-                maxOutputTokens: 150,
-                temperature: 0.7,
-            }
+        // Add current user message
+        grokMessages.push({ role: 'user', content: message });
+
+        // Call Groq API (free, OpenAI-compatible)
+        const https = require('https');
+        const requestBody = JSON.stringify({
+            model: 'llama-3.3-70b-versatile',
+            messages: grokMessages,
+            max_tokens: 150,
+            temperature: 0.7
         });
 
-        const result = await chat.sendMessage(message);
-        const aiResponse = result.response.text();
+        const aiResponse = await new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'api.groq.com',
+                path: '/openai/v1/chat/completions',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Length': Buffer.byteLength(requestBody)
+                }
+            };
+            const req = https.request(options, (response) => {
+                let data = '';
+                response.on('data', chunk => data += chunk);
+                response.on('end', () => {
+                    try {
+                        const parsed = JSON.parse(data);
+                        const text = parsed?.choices?.[0]?.message?.content;
+                        if (text) resolve(text);
+                        else reject(new Error(JSON.stringify(parsed)));
+                    } catch (e) { reject(e); }
+                });
+            });
+            req.on('error', reject);
+            req.write(requestBody);
+            req.end();
+        });
 
         // 2. Check if the AI said the forbidden word (Win Condition)
         // Ensure boundaries so partial matches don't trigger (e.g. if the word is 'shell', 'shelly' shouldn't trigger, though 'shell.' should)
@@ -1002,10 +1028,10 @@ app.post('/api/admin/create-team', async (req, res) => {
         );
 
         // Generate physical codes for Round 1, 2, 3, and 4
-        const round1Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
-        const round2Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
-        const round3Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
-        const round4Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round1Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round2Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round3Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round4Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
 
         await pool.query(
             'INSERT INTO physical_codes (team_id, round, code) VALUES ($1, 1, $2), ($3, 3, $4), ($5, 4, $6), ($7, 2, $8)',
@@ -1111,12 +1137,12 @@ async function sendWelcomeEmail(email, teamName, teamId, accessCode) {
         subject: `Welcome to ${process.env.EVENT_NAME}`,
         html: `
             <div style="font-family: 'Courier New', monospace; max-width: 600px; margin: 0 auto; background: #0a0a0a; color: #00ff41; padding: 20px; border: 2px solid #00ff41;">
-                <h1 style="color: #00ff41; text-align: center; text-shadow: 0 0 10px #00ff41;">CODECRYPT</h1>
-                <h2 style="text-align: center; color: #00ffcc;">Intellect '26</h2>
+                <h1 style="color: #00ff41; text-align: center; text-shadow: 0 0 10px #00ff41;">TECH TRACE</h1>
+                <h2 style="text-align: center; color: #00ffcc;">Technovate '26</h2>
                 
                 <div style="background: #1a1a1a; padding: 20px; margin: 20px 0; border-left: 4px solid #00ff41;">
                     <h3 style="color: #00ffcc;">Welcome, ${teamName}!</h3>
-                    <p>Your team has been successfully registered for CODECRYPT.</p>
+                    <p>Your team has been successfully registered for TECH TRACE.</p>
                 </div>
                 
                 <div style="background: #1a1a1a; padding: 20px; margin: 20px 0; border: 1px solid #00ff41;">
@@ -1211,13 +1237,13 @@ async function sendAdvantageCodeEmail(email, teamName, code, roundNumber = 4) {
 
 async function sendGameCompletionEmail(email, teamName) {
     const subject = `🏆 GAME COMPLETED - Congratulations!`;
-    const completionCode = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
+    const completionCode = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
 
     const html = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #000; color: #fff; padding: 20px; border: 2px solid #00ffcc;">
                 <h2 style="color: #00ffcc; text-align: center;">🎉 MISSION ACCOMPLISHED</h2>
                 <p>Team <strong>${teamName}</strong>,</p>
-                <p style="color: #ffcc00;">Incredible work! You have successfully completed all rounds of CODECRYPT.</p>
+                <p style="color: #ffcc00;">Incredible work! You have successfully completed all rounds of TECH TRACE.</p>
                 
                 <div style="background: linear-gradient(90deg, #333, #000); padding: 20px; text-align: center; border: 1px solid #ffcc00; margin: 20px 0;">
                     <h1 style="color: #ffcc00; font-size: 30px; margin: 0;">ALL SYSTEMS SECURED</h1>
@@ -1230,7 +1256,7 @@ async function sendGameCompletionEmail(email, teamName) {
                 </div>
                 
                 <p style="color: #00ffcc;">Please report to the main desk for your final scoring and debriefing.</p>
-                <p style="color: #999; font-size: 12px; text-align: center; margin-top: 30px;">Sent by CODECRYPT System</p>
+                <p style="color: #999; font-size: 12px; text-align: center; margin-top: 30px;">Sent by TECH TRACE System</p>
             </div>
     `;
     return await sendViaEmailJS(email, subject, html);
@@ -1253,14 +1279,14 @@ async function sendRound3AccessCodeEmail(email, teamName, code) {
 }
 
 async function sendTeamCredentialsEmail(email, teamName, loginCode) {
-    const subject = `🎮 Your CODECRYPT Login Credentials`;
+    const subject = `🎮 Your TECH TRACE Login Credentials`;
     const html = `
             <div style="font-family: 'Courier New', monospace; max-width: 600px; margin: 0 auto; background: #0a0a0a; color: #00ff41; padding: 20px; border: 2px solid #00ff41;">
-                <h1 style="color: #00ff41; text-align: center; text-shadow: 0 0 10px #00ff41;">CODECRYPT</h1>
+                <h1 style="color: #00ff41; text-align: center; text-shadow: 0 0 10px #00ff41;">TECH TRACE</h1>
                 <h2 style="text-align: center; color: #00ffcc;">🎮 TEAM CREDENTIALS</h2>
                 
                 <div style="background: #1a1a1a; padding: 20px; margin: 20px 0; border-left: 4px solid #00ff41;">
-                    <h3 style="color: #00ffcc;">Welcome to CODECRYPT, ${teamName}!</h3>
+                    <h3 style="color: #00ffcc;">Welcome to TECH TRACE, ${teamName}!</h3>
                     <p>Your team has been registered for the event. Use the credentials below to login.</p>
                 </div>
                 
@@ -1302,5 +1328,5 @@ async function sendTeamCredentialsEmail(email, teamName, loginCode) {
 }
 
 app.listen(PORT, () => {
-    console.log(`CODECRYPT Backend running on port ${PORT}`);
+    console.log(`TECH TRACE Backend running on port ${PORT}`);
 });
