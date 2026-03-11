@@ -80,8 +80,8 @@ const validateSubmission = (round, stage, answer) => {
                 };
             }
             if (stage === 6) {
-                // Validate code format CRPT-XXXX
-                const codePattern = /^CRPT-\d{4}$/i;
+                // Validate code format TRACE-XXXX
+                const codePattern = /^TRACE-\d{4}$/i;
                 if (codePattern.test(answer.trim())) {
                     return {
                         success: true,
@@ -107,8 +107,8 @@ const validateSubmission = (round, stage, answer) => {
 
             // Stage 6: Location Reveal / Physical Code
             if (stage === 6) {
-                // Validate code format CRPT-XXXX
-                const codePattern = /^CRPT-\d{4}$/i;
+                // Validate code format TRACE-XXXX
+                const codePattern = /^TRACE-\d{4}$/i;
                 if (codePattern.test(answer.trim())) {
                     return {
                         success: true,

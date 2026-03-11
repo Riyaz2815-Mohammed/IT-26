@@ -89,4 +89,4 @@ export const ROUND3_QUESTIONS = [
 ];
 
 export const ROUND3_PLACE = "RUDRA BLOCK";
-export const ROUND3_CODE = "CRPT-9384"; // Team-specific in real implementation
+export const ROUND3_CODE = "TRACE-9384"; // Team-specific in real implementation

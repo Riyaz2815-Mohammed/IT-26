@@ -40,10 +40,10 @@ async function seedTeams() {
         // Insert Physical Codes (Round 1 & Round 3)
         console.log('🔑 Generating Physical Codes...');
         const codes = [
-            ['TM-001', 1, 'CRPT-1111'], ['TM-001', 3, 'CRPT-3311'],
-            ['TM-002', 1, 'CRPT-2222'], ['TM-002', 3, 'CRPT-3322'],
-            ['TM-003', 1, 'CRPT-3333'], ['TM-003', 3, 'CRPT-3333'],
-            ['TM-004', 1, 'CRPT-4444'], ['TM-004', 3, 'CRPT-3344']
+            ['TM-001', 1, 'TRACE-1111'], ['TM-001', 3, 'TRACE-3311'],
+            ['TM-002', 1, 'TRACE-2222'], ['TM-002', 3, 'TRACE-3322'],
+            ['TM-003', 1, 'TRACE-3333'], ['TM-003', 3, 'TRACE-3333'],
+            ['TM-004', 1, 'TRACE-4444'], ['TM-004', 3, 'TRACE-3344']
         ];
 
         await connection.query(
@@ -53,10 +53,10 @@ async function seedTeams() {
 
         console.log('✅ SEEDING COMPLETE');
         console.log('---------------------------------------------------');
-        console.log('TEAM ALPHA:  Alpha  / LOGIN-1111  (R1: CRPT-1111)');
-        console.log('TEAM BETA:   Beta   / LOGIN-2222  (R1: CRPT-2222)');
-        console.log('TEAM GAMMA:  Gamma  / LOGIN-3333  (R1: CRPT-3333)');
-        console.log('TEAM DELTA:  Delta  / LOGIN-4444  (R1: CRPT-4444)');
+        console.log('TEAM ALPHA:  Alpha  / LOGIN-1111  (R1: TRACE-1111)');
+        console.log('TEAM BETA:   Beta   / LOGIN-2222  (R1: TRACE-2222)');
+        console.log('TEAM GAMMA:  Gamma  / LOGIN-3333  (R1: TRACE-3333)');
+        console.log('TEAM DELTA:  Delta  / LOGIN-4444  (R1: TRACE-4444)');
         console.log('---------------------------------------------------');
         console.log('ADMIN LOGIN: admin  / admin123');
         console.log('---------------------------------------------------');

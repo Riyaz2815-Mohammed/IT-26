@@ -27,51 +27,49 @@ export const STUDENTS_TABLE = COLLEGE_DATA.students;
 export const ROUND2_QUESTIONS = [
     {
         id: 1,
-        title: "Question 1 – Runtime Error (Java)",
-        code: `public class SumArray {
+        title: "Question 1 – Logical Error (C)",
+        code: `#include <stdio.h>
 
-    public static void main(String args[]) {
+void swap(int a, int b){
+    int temp = a;
+    a = b;
+    b = temp;
+}
 
-        int arr[] = {5,10,15,20};
-        int sum = 0;
-
-        for(int i = 0; i <= arr.length; i++) {
-            sum += arr[i];
-        }
-
-        System.out.println("Sum = " + sum);
-    }
+int main(){
+    int x = 10, y = 20;
+    swap(x, y);
+    printf("%d %d", x, y);
+    return 0;
 }`,
-        error: `Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4`,
-        expected: `Sum = 50`,
-        task: `Identify the cause of the runtime error and correct the loop.`,
+        error: `Output Produced: 10 20`,
+        expected: `20 10`,
+        task: `Fix the swap function and its call so that the variables are correctly swapped.`,
         validation: {
-            required: ['i < arr.length', 'i<arr.length'],
-            forbidden: ['<=']
+            required: ['*a', '*b', '&x', '&y'],
+            forbidden: []
         }
     },
     {
         id: 2,
-        title: "Question 2 – Runtime Error (C)",
-        code: `#include<stdio.h>
+        title: "Question 2 – Logical Error (Java)",
+        code: `class Test {
 
-int main() {
+    public static void main(String[] args){
 
-    int arr[] = {1,2,3,4,5};
-    int n = sizeof(arr)/sizeof(arr[0]);
+        String s = "programming";
 
-    for(int i = 0; i <= n; i++) {
-        printf("%d ", arr[i]);
+        s.replace('g','x');
+
+        System.out.println(s);
     }
-
-    return 0;
 }`,
-        error: `Segmentation fault (core dumped)`,
-        expected: `1 2 3 4 5`,
-        task: `Fix the runtime issue causing the program to crash.`,
+        error: `Output Produced: programming`,
+        expected: `proxxramminx`,
+        task: `Understand String immutability and correct the code to output the replaced string.`,
         validation: {
-            required: ['i < n', 'i<n'],
-            forbidden: ['<=']
+            required: ['s = s.replace', 's=s.replace'],
+            forbidden: []
         }
     },
     {
@@ -119,7 +117,7 @@ print(nums)`,
         expected: `[]`,
         task: `Identify why the list elements are not fully removed and correct the logic.`,
         validation: {
-            required: ['nums.clear()', 'nums = []', 'nums[:] = []','nums.pop()'], // Accepting various fixes
+            required: ['nums.clear()', 'nums = []', 'nums[:] = []', 'nums.pop()'], // Accepting various fixes
             forbidden: []
         }
     },
@@ -177,12 +175,12 @@ AttributeError: 'int' object has no attribute 'multiply'`,
 ];
 
 export const ROUND2_PLACE = "OPEN AUDI";
-export const ROUND2_CODE = "CRPT-5521";
+export const ROUND2_CODE = "TRACE-5521";
 
 // Helper to normalize query for loose validation
 export const normalizeQuery = (q) => {
     return q.toLowerCase()
-        .replace(/\s+/g, ' ')
+        .replace(/\s+/g, ' ') // Collapse spaces
         .replace(/["';]/g, '')
         .replace(/\s*\(\s*/g, '(') // Remove spaces around (
         .replace(/\s*\)\s*/g, ')') // Remove spaces around )

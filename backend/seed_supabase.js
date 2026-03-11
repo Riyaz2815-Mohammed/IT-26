@@ -55,10 +55,10 @@ async function seedTeams() {
         `;
 
         const codeValues = [
-            'TM-001', 'CRPT-1111', 'CRPT-3311',
-            'TM-002', 'CRPT-2222', 'CRPT-3322',
-            'TM-003', 'CRPT-3333', 'CRPT-3355',
-            'TM-004', 'CRPT-4444', 'CRPT-3344'
+            'TM-001', 'TRACE-1111', 'TRACE-3311',
+            'TM-002', 'TRACE-2222', 'TRACE-3322',
+            'TM-003', 'TRACE-3333', 'TRACE-3355',
+            'TM-004', 'TRACE-4444', 'TRACE-3344'
         ];
 
         await client.query(codesQuery, codeValues);

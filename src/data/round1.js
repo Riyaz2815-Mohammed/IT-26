@@ -61,5 +61,5 @@ export const SQL_CHALLENGES = [
     }
 ];
 
-export const ROUND1_PLACE = "CANTEEN";
-export const ROUND1_CODE = "CRPT-7712"; // This would change per team in a real DB
+export const ROUND1_PLACE = "EIE BLOCK";
+export const ROUND1_CODE = "TRACE-7712"; // This would change per team in a real DB

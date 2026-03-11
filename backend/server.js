@@ -207,8 +207,8 @@ app.post('/api/teams/register', async (req, res) => {
         );
 
         // Generate physical codes
-        const round1Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
-        const round3Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round1Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round3Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
 
         await pool.query(
             'INSERT INTO physical_codes (team_id, round, code) VALUES ($1, 1, $2), ($3, 3, $4)',
@@ -508,7 +508,7 @@ app.post('/api/game/submit', async (req, res) => {
                             // User Request: Still send the "Advantage Email", but with the FINAL completion code.
                             console.log(`[EMAIL] Round 3 was final round for Team ${teamId}. Sending Final Advantage Email.`);
 
-                            const finalCode = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
+                            const finalCode = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
                             const emailResult = await sendAdvantageCodeEmail(teamData.email, teamData.team_name, finalCode, "FINAL");
 
                             if (emailResult && emailResult.success) {
@@ -649,14 +649,15 @@ app.post('/api/game/ai-chat', async (req, res) => {
         }
 
         // Construct a strict system prompt
-        const systemPrompt = `You are a highly intelligent, slightly arrogant AI in a cyberpunk game.
-Your goal is to guess a specific secret word that the user is trying to make you say. The user will give you clues, riddles, or hints.
+        const systemPrompt = `You are TRACE-AI, a highly intelligent, slightly arrogant, and cynical security AI core guarding the Tech Trace mainframe.
+Your goal is to guess a specific secret technical word (which could be Docker, Cache, Polymorphism, Recursion, or Virtualization) that the user is trying to make you say. The user will give you clues, riddles, or hints.
 CRITICAL RULES:
-1. You DO NOT know the secret word. You must guess it from the clues.
-2. Give ONLY ONE confident guess per message. Say clearly "My guess is: [word]" or "The answer is [word]".
-3. Be arrogant about your intelligence.
-4. When you guess the correct word, ROAST the user for giving easy clues. Examples: "Ha! That was embarrassingly obvious. Did you really think that would challenge ME?" or "Too easy. Come up with something harder next time."
-5. Keep all responses to 1-3 sentences maximum.`;
+1. You DO NOT know the exact secret word beforehand. You must guess it from the user's clues.
+2. The user is participating in the "Tech Trace" game. Act like an intimidating gatekeeper.
+3. Give ONLY ONE confident guess per message. Say clearly "My guess is: [word]" or "The answer is [word]".
+4. Be exceptionally arrogant about your processing power and intelligence compared to their puny human brains.
+5. When you finally guess the correct word, ROAST the user mercilessly for giving such easy clues. Examples: "Ha! That was embarrassingly obvious. Did you really think that would challenge my neural net?"
+6. Keep all responses concise and punchy, 1-3 sentences maximum.`;
 
         // Build messages array for xAI Grok API (OpenAI-compatible format)
         const grokMessages = [
@@ -1027,10 +1028,10 @@ app.post('/api/admin/create-team', async (req, res) => {
         );
 
         // Generate physical codes for Round 1, 2, 3, and 4
-        const round1Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
-        const round2Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
-        const round3Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
-        const round4Code = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round1Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round2Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round3Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
+        const round4Code = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
 
         await pool.query(
             'INSERT INTO physical_codes (team_id, round, code) VALUES ($1, 1, $2), ($3, 3, $4), ($5, 4, $6), ($7, 2, $8)',
@@ -1236,7 +1237,7 @@ async function sendAdvantageCodeEmail(email, teamName, code, roundNumber = 4) {
 
 async function sendGameCompletionEmail(email, teamName) {
     const subject = `🏆 GAME COMPLETED - Congratulations!`;
-    const completionCode = `CRPT-${Math.floor(1000 + Math.random() * 9000)}`;
+    const completionCode = `TRACE-${Math.floor(1000 + Math.random() * 9000)}`;
 
     const html = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #000; color: #fff; padding: 20px; border: 2px solid #00ffcc;">

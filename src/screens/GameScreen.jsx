@@ -437,8 +437,8 @@ const TableQueryFlashContent = ({ levelData, retryCount = 0, onLock }) => {
                     position: 'fixed',
                     top: 0,
                     left: 0,
-                    width: '100vw',
-                    height: '100vh',
+                    right: 0,
+                    bottom: 0,
                     background: 'rgba(0, 0, 0, 0.95)',
                     zIndex: 9999,
                     display: 'flex',
@@ -455,7 +455,7 @@ const TableQueryFlashContent = ({ levelData, retryCount = 0, onLock }) => {
                         textAlign: 'center',
                         boxShadow: '0 0 30px rgba(255, 204, 0, 0.15)',
                         position: 'relative',
-                        transform: 'translateY(5vh) scale(0.95)'
+                        transform: 'translateY(15vh) scale(0.95)'
                     }}>
                         <div style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>⚠️</div>
                         <h2 className="glitch" data-text="MEMORY CHALLENGE AHEAD" style={{
@@ -1435,6 +1435,7 @@ const GameScreen = () => {
             setInput('');
         }
         setShowFailure(false);
+        setIsFlashLocked(false);
         // Penalty persists until stage changes
     };
 

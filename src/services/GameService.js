@@ -124,11 +124,11 @@ export const GameService = {
             // Stage 6: Email Code Entry
             if (stage === 6) {
                 // Client-side format check (Backend does real validation)
-                const codePattern = /^CRPT-\d{4}$/i;
+                const codePattern = /^TRACE-\d{4}$/i;
                 if (codePattern.test(input.trim())) {
                     return { success: true, points: 200, message: 'ACCESS CODE VERIFIED' };
                 } else {
-                    return { success: false, message: 'INVALID FORMAT: Expected CRPT-XXXX' };
+                    return { success: false, message: 'INVALID FORMAT: Expected TRACE-XXXX' };
                 }
             }
         }
@@ -142,11 +142,11 @@ export const GameService = {
 
             // Stage 6: Physical Code Entry
             if (stage === 6) {
-                const codePattern = /^CRPT-\d{4}$/i;
+                const codePattern = /^TRACE-\d{4}$/i;
                 if (codePattern.test(input.trim())) {
                     return { success: true, points: 250, message: 'PHYSICAL CODE VERIFIED' };
                 } else {
-                    return { success: false, message: 'INVALID FORMAT: Expected CRPT-XXXX' };
+                    return { success: false, message: 'INVALID FORMAT: Expected TRACE-XXXX' };
                 }
             }
         }
@@ -254,7 +254,7 @@ export const GameService = {
                     type: 'EMAIL_CODE_ENTRY',
                     title: 'SYSTEM BREACH DETECTED',
                     content: 'Access code sent to secure channel (EMAIL).',
-                    hint: 'Check your registered email for the code: CRPT-XXXX',
+                    hint: 'Check your registered email for the code: TRACE-XXXX',
                     location: 'INBOX'
                 };
             }
