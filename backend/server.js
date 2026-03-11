@@ -615,7 +615,7 @@ app.post('/api/game/submit', async (req, res) => {
             timeTaken,
             timeBonus: result.success ? timeBonus : 0,
             totalPoints: totalPointsAwarded,
-            newTotalScore: result.success ? finalScore : team.total_score // Return authoritative score
+            newTotalScore: result.success ? (team.total_score + totalPointsAwarded + (result.success && parseInt(stage) >= (parseInt(round) === 3 ? 6 : (parseInt(round) === 4 ? 3 : 5)) ? (GameService.ROUND_CONFIG[parseInt(round)]?.completionBonus || 0) : 0)) : team.total_score
         });
     } catch (error) {
         console.error('Submit error:', error);

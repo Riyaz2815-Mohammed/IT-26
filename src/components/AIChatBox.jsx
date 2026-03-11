@@ -41,7 +41,8 @@ const AIChatBox = ({ levelData, onPass, onFail }) => {
 
         try {
             // Using absolute URL for backend port 3001
-            const response = await fetch(`http://localhost:3001/api/game/ai-chat`, {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+            const response = await fetch(`${apiUrl}/game/ai-chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
