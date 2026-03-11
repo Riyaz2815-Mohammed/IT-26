@@ -174,7 +174,7 @@ AttributeError: 'int' object has no attribute 'multiply'`,
     }
 ];
 
-export const ROUND2_PLACE = "OPEN AUDI";
+export const ROUND2_PLACE = "BANK";
 export const ROUND2_CODE = "TRACE-5521";
 
 // Helper to normalize query for loose validation

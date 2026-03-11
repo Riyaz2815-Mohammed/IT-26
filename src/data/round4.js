@@ -51,7 +51,7 @@ export const ROUND4_STAGES = [
         type: 'LOCATION_REVEAL',
         title: 'Final Access',
         content: 'You have breached the AI core. The final location key is required to proceed.',
-        location: 'BANK',
+        location: 'OPEN AUDI',
         hint: 'Locate the game marshal at the BANK to receive your final physical access code.'
     }
 ];

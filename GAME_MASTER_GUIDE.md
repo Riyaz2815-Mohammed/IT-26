@@ -5,9 +5,9 @@
 ### Physical Location Codes
 | Round | Location | Access Code |
 |-------|----------|-------------|
-| Round 1 | **CANTEEN** | `TRACE-7712` |
-| Round 2 | **OPEN AUDI** | `TRACE-5521` |
-| Round 4 | **OVAL** | `TRACE-8124` |
+| Round 1 | **EIE BLOCK** | `TRACE-7712` |
+| Round 2 | **BANK** | `TRACE-5521` |
+| Round 4 | **OPEN AUDI** | `TRACE-8124` |
 
 ### Email Advantage
 - **Trigger**: Completing Round 3 (Flash/Memory)
@@ -18,7 +18,7 @@
 
 ## 🎯 Round 1: SQL Syntax (Drag & Drop)
 
-**Location**: CANTEEN  
+**Location**: EIE BLOCK  
 **Code**: `TRACE-7712`  
 **Stages**: 4 SQL reconstruction challenges
 
@@ -48,7 +48,7 @@ SELECT users.name, orders.amount FROM users JOIN orders ON users.id = orders.use
 
 ## 🎯 Round 2: C & Java Code Fixes
 
-**Location**: OPEN AUDI  
+**Location**: BANK  
 **Code**: `TRACE-5521`  
 **Stages**: 6 code debugging challenges
 
@@ -215,7 +215,7 @@ ORDER BY error_rate DESC
 
 ## 🎯 Round 4: AI Reverse Turing Test
 
-**Location**: OVAL  
+**Location**: OPEN AUDI  
 **Code**: `TRACE-8124`  
 **Stages**: 5 AI Guess Challenges
 
@@ -273,7 +273,7 @@ The goal is to get the AI to say the specific technical word WITHOUT using it in
 Team Alpha,
 Congratulations! You completed Round 3!
 Your code for Round 1: CRPT-7712
-No need to visit CANTEEN - you've earned this advantage!
+No need to visit EIE BLOCK - you've earned this advantage!
 ```
 
 ---
