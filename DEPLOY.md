@@ -26,9 +26,10 @@ The backend runs the API, Game Logic, and Email Service.
 5. **Environment Variables**:
    Add the following variables (copy values from your local `.env`):
    - `DATABASE_URL`: (Your Supabase connection string, use port 5432 or 6543)
-   - `SMTP_USER`: (Your email)
-   - `SMTP_PASS`: (Your email password)
-   - `EVENT_NAME`: `INTELLECT '26`
+   - `SMTP_USER`: (Your EmailJS or SMTP config)
+   - `SMTP_PASS`: (Your EmailJS or SMTP config)
+   - `EVENT_NAME`: `TECH TRACE '26`
+   - `API_KEY`: (Your AI API key for Round 4 Reverse Turing Test)
 6. Click **Create Web Service**.
 7. **Copy the URL**: Once deployed, copy your backend URL (e.g., `https://codecrypt-backend.onrender.com`).
 
@@ -67,7 +68,7 @@ If you see "CORS error" in the browser console:
 2. Update the `cors` configuration to allow your Vercel domain.
    ```javascript
    app.use(cors({
-       origin: ['http://localhost:5173', 'https://your-vercel-app.vercel.app'],
+       origin: ['http://localhost:5173', 'https://it-26.vercel.app'],
        credentials: true
    }));
    ```
