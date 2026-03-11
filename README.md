@@ -9,6 +9,8 @@
 ---
 
 ## 🚀 Overview
+**Live Project:** [https://it-26.vercel.app/](https://it-26.vercel.app/)
+
 **TECH TRACE** is a high-fidelity, hacker-themed Capture The Flag (CTF) platform built for **Technovate '26**. It simulates a critical system breach where players must use their technical skills to navigate through cryptographic puzzles, SQL injections, data forensics, and high-pressure logic challenges.
 
 Designed with a **cinematic dark-mode UI**, real-time leaderboards, and branching game paths, CodeCrypt delivers an immersive competitive experience for developers and hackers alike.
@@ -23,9 +25,9 @@ Designed with a **cinematic dark-mode UI**, real-time leaderboards, and branchin
 - **📊 Live Leaderboard**: Dynamic ranking system based on Score > Progression > Time Taken.
 - **🧩 Multi-Disciplinary Rounds**:
   - **Round 1 (SQL Construction)**: Drag-and-drop query building.
-  - **Round 2 (Forensics)**: Complex SQL analysis on large datasets.
-  - **Round 3 (Flash Memory)**: Rapid-fire visual memory and retyping challenges.
-  - **Round 4 (Debugging)**: Logic matching and query repair.
+  - **Round 2 (Code Debugging)**: Identify and fix bugs in C, Java, and Python snippets.
+  - **Round 3 (Flash Memory)**: Rapid-fire visual memory and logic challenges.
+  - **Round 4 (AI Reverse Turing)**: Trick the cyber AI into guessing forbidden words.
 - **✉️ Email & Physical Integration**: Hybrid gameplay requiring physical clues and automated email triggers.
 
 ---

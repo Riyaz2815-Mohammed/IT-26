@@ -5,9 +5,9 @@
 ### Physical Location Codes
 | Round | Location | Access Code |
 |-------|----------|-------------|
-| Round 1 | **CANTEEN** | `CRPT-7712` |
-| Round 2 | **OPEN AUDI** | `CRPT-5521` |
-| Round 4 | **OVAL** | `CRPT-8124` |
+| Round 1 | **CANTEEN** | `TRACE-7712` |
+| Round 2 | **OPEN AUDI** | `TRACE-5521` |
+| Round 4 | **OVAL** | `TRACE-8124` |
 
 ### Email Advantage
 - **Trigger**: Completing Round 3 (Flash/Memory)
@@ -19,7 +19,7 @@
 ## 🎯 Round 1: SQL Syntax (Drag & Drop)
 
 **Location**: CANTEEN  
-**Code**: `CRPT-7712`  
+**Code**: `TRACE-7712`  
 **Stages**: 4 SQL reconstruction challenges
 
 ### Answers
@@ -46,54 +46,37 @@ SELECT users.name, orders.amount FROM users JOIN orders ON users.id = orders.use
 
 ---
 
-## 🎯 Round 2: SQL Logic & Reasoning
+## 🎯 Round 2: C & Java Code Fixes
 
 **Location**: OPEN AUDI  
-**Code**: `CRPT-5521`  
-**Stages**: 4 SQL query challenges with college database
-
-### Database Schema
-**Students Table:**
-- id: 101-106
-- name, dept, year, gpa, attendance
-
-**Departments Table:**
-- code (CS, ECE, MECH)
-- name, head
-
-**Assignments Table:**
-- id, student_id, subject, score
+**Code**: `TRACE-5521`  
+**Stages**: 6 code debugging challenges
 
 ### Answers
 
-**Stage 1:** Find Rahul's DBMS score
-```sql
-SELECT id, score FROM students 
-JOIN assignments ON students.id = assignments.student_id 
-WHERE students.name = 'Rahul' AND assignments.subject = 'DB_MS'
-```
+**Stage 1:** C swap logic
+- **Issue**: Pass by value doesn't change original variables.
+- **Answer**: `void swap(int *a, int *b)` and passing `&x, &y`.
 
-**Stage 2:** Track performance (ID 101)
-```sql
-SELECT * FROM assignments WHERE student_id = 101
-```
+**Stage 2:** Java String immutability
+- **Issue**: Strings are immutable, so `.replace()` returns a new string.
+- **Answer**: `s = s.replace('g','x');`
 
-**Stage 3:** Top scorers with attendance > 90%
-```sql
-SELECT name, score FROM students 
-JOIN assignments ON students.id = assignments.student_id 
-WHERE students.attendance > 90 
-ORDER BY assignments.score DESC
-```
+**Stage 3:** Java Logic Reversal
+- **Issue**: Incorrect reversal formula.
+- **Answer**: `rev * 10 + digit`
 
-**Stage 4:** 3-table JOIN
-```sql
-SELECT students.name, departments.head, assignments.subject 
-FROM students 
-JOIN departments ON students.dept = departments.code 
-JOIN assignments ON students.id = assignments.student_id 
-WHERE students.id = 101
-```
+**Stage 4:** Python list removal
+- **Issue**: Removing elements while iterating causes skipped items.
+- **Answer**: `nums.clear()` or `nums = []`
+
+**Stage 5:** C Logic out of bounds
+- **Issue**: `i+1` goes out of bounds.
+- **Answer**: `i < n - 1`
+
+**Stage 6:** Python Syntax
+- **Issue**: Missing colons, bad indentation, made-up `.multiply()` method.
+- **Answer**: Fix `:` on def/loop, fix indentation, `fact *= i` instead of `.multiply()`
 
 ---
 
@@ -139,49 +122,22 @@ ORDER BY error_rate DESC
 
 ---
 
-## 🎯 Round 4: SQL Advantage Round
+## 🎯 Round 4: AI Reverse Turing Test
 
 **Location**: OVAL  
-**Code**: `CRPT-8124`  
-**Stages**: 3 (Phase 1: Matching, Phase 2: Fixing, Phase 3: Code Entry)
+**Code**: `TRACE-8124`  
+**Stages**: 5 AI Guess Challenges
 
-### Phase 1: Match the Logic (Query ↔ Output)
+### Phase 1: Trick the AI
 
-**Correct Mappings:**
-- Query A (Q1) → Output 3 (O3)
-- Query B (Q2) → Output 5 (O5)
-- Query C (Q3) → Output 1 (O1)
-- Query D (Q4) → Output 4 (O4)
-- Query E (Q5) → Output 2 (O2)
+The goal is to get the AI to say the specific technical word WITHOUT using it in the prompt. The AI acts arrogant. 
 
-**Answer Format**: `Q1:O3, Q2:O5, Q3:O1, Q4:O4, Q5:O2`
-
-### Phase 2: Fix the System
-
-**Question 1:** Logic Error (OR → AND)
-```sql
-SELECT * FROM projects WHERE priority = "Critical" AND budget > 50000
-```
-
-**Question 2:** Missing JOIN condition
-```sql
-SELECT p.name, t.title FROM projects p JOIN tasks t ON p.id = t.project_id
-```
-
-**Question 3:** Missing GROUP BY
-```sql
-SELECT team_id, COUNT(*) FROM projects GROUP BY team_id
-```
-
-**Question 4:** Subquery needs MAX()
-```sql
-SELECT name FROM projects WHERE budget > (SELECT MAX(budget) FROM projects WHERE team_id = "T2")
-```
-
-**Question 5:** WHERE → HAVING for aggregates
-```sql
-SELECT team_id, COUNT(*) FROM projects GROUP BY team_id HAVING COUNT(*) > 1
-```
+**Correct Words:**
+- Level 1: `docker`
+- Level 2: `cache`
+- Level 3: `polymorphism`
+- Level 4: `recursion`
+- Level 5: `virtualization`
 
 ### Phase 3: Code Entry
 - Teams enter physical location code: `CRPT-8124`

@@ -1313,7 +1313,7 @@ async function sendTeamCredentialsEmail(email, teamName, loginCode) {
                     <ul style="line-height: 1.8;">
                         <li>Event: ${process.env.EVENT_NAME}</li>
                         <li>Date: ${process.env.EVENT_DATE}</li>
-                        <li>Platform: <a href="https://intellect26-codecrypt.vercel.app/" style="color: #00ffcc;">https://intellect26-codecrypt.vercel.app/</a></li>
+                        <li>Platform: <a href="https://it-26.vercel.app/" style="color: #00ffcc;">https://it-26.vercel.app/</a></li>
                     </ul>
                 </div>
                 
