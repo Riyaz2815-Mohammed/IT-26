@@ -41,53 +41,12 @@ Designed with a **cinematic dark-mode UI**, real-time leaderboards, and branchin
 
 ---
 
-## 📸 Screenshots
-
-| Login Terminal | Live Leaderboard |
-| :---: | :---: |
-| ![Login Screen](screenshots/login.png) | ![Leaderboard](screenshots/leaderboard.png) |
-
-| SQL Builder (Round 1) | Data Forensics (Round 2) |
-| :---: | :---: |
-| ![Round 1](screenshots/round1.png) | ![Round 2](screenshots/round2.png) |
-
----
-
-## 🚀 Quick Start
-
-### 1. Prerequisites
-- Node.js (v18+)
-- PostgreSQL Database
-
-### 2. Installation
-```bash
-# Install root dependencies
-npm install
-
-# Install backend dependencies
-cd backend && npm install
-```
-
-### 3. Running Locally
-```bash
-# Run both frontend and backend concurrently
-npm run dev
-```
-- **Frontend**: `http://localhost:5173`
-- **Admin Panel**: `http://localhost:5173/admin` (Default: `admin` / `admin123`)
-
----
-
-## 🎲 Game Master Reference (Challenges & Answers)
-
-For detailed challenge setups, constraints, and physical location dependencies, refer to the [GAME_MASTER_GUIDE.md](./GAME_MASTER_GUIDE.md). Below is a quick summary of the live rounds.
-
-### Round 1: SQL Syntax (EIE BLOCK)
-**Task:** Reconstruct valid SQL queries.
-1. `SELECT name FROM students WHERE marks > 80`
-2. `SELECT * FROM logs WHERE status = 'error' ORDER BY created_at DESC`
-3. `SELECT department, COUNT(*) FROM employees GROUP BY department HAVING COUNT(*) > 5`
-4. `SELECT users.name, orders.amount FROM users JOIN orders ON users.id = orders.user_id`
+### Round 1: Code & SQL Construction (EIE BLOCK)
+**Task:** Reconstruct valid code and SQL queries by dragging blocks.
+1. **Python Two Sum Algorithm:** Arrange the two pointer approach to find the target sum.
+2. **SQL Query 1:** `SELECT * FROM logs WHERE status = 'error' ORDER BY created_at DESC`
+3. **SQL Query 2:** `SELECT department, COUNT(*) FROM employees GROUP BY department HAVING COUNT(*) > 5`
+4. **SQL Query 3:** `SELECT users.name, orders.amount FROM users JOIN orders ON users.id = orders.user_id`
 
 ### Round 2: Code Debugging (BANK)
 **Task:** Fix the broken code snippets.

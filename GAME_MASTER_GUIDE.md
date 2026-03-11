@@ -16,17 +16,25 @@
 
 ---
 
-## 🎯 Round 1: SQL Syntax (Drag & Drop)
+## 🎯 Round 1: Code & SQL Syntax (Drag & Drop)
 
 **Location**: EIE BLOCK  
 **Code**: `TRACE-7712`  
-**Stages**: 4 SQL reconstruction challenges
+**Stages**: 1 Python and 3 SQL reconstruction challenges
 
 ### Answers
 
-**Stage 1:**
-```sql
-SELECT name FROM students WHERE marks > 80
+**Stage 1:** Two Sum Python
+```python
+def twosum(nums,target):
+nums.sort()
+l,r=0,len(nums)-1
+while l<r:
+sum=nums[l]+nums[r]
+if sum==target: return [l,r]
+elif sum<target: l+=1
+else: r-=1
+return []
 ```
 
 **Stage 2:**
