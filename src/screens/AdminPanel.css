@@ -281,20 +281,54 @@ code {
 }
 
 .status-badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
     font-family: var(--font-code);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.status-badge::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .status-badge.active {
-    background: rgba(0, 255, 65, 0.2);
-    color: var(--accent-primary);
+    background: rgba(0, 255, 65, 0.12);
+    color: #00ff41;
+    border: 1px solid rgba(0, 255, 65, 0.35);
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.1);
+}
+
+.status-badge.active::before {
+    background: #00ff41;
+    box-shadow: 0 0 5px #00ff41;
+    animation: pulse-dot 2s ease-in-out infinite;
 }
 
 .status-badge.inactive {
-    background: rgba(255, 51, 51, 0.2);
-    color: var(--accent-error);
+    background: rgba(255, 51, 51, 0.1);
+    color: #ff5555;
+    border: 1px solid rgba(255, 51, 51, 0.3);
+}
+
+.status-badge.inactive::before {
+    background: #ff5555;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 5px #00ff41; }
+    50% { opacity: 0.5; box-shadow: 0 0 2px #00ff41; }
 }
 
 .actions {

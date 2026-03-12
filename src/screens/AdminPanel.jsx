@@ -633,11 +633,11 @@ const AdminPanel = () => {
                                     <strong style={{ color: '#fff' }}>ROUND KEY:</strong>
                                     <span><strong style={{ color: 'var(--accent-primary)' }}>1</strong> SQL Basics</span>
                                     <span style={{ color: '#444' }}>|</span>
-                                    <span><strong style={{ color: 'var(--accent-primary)' }}>2</strong> Physical Access</span>
+                                    <span><strong style={{ color: 'var(--accent-primary)' }}>2</strong> Debug</span>
                                     <span style={{ color: '#444' }}>|</span>
                                     <span><strong style={{ color: 'var(--accent-primary)' }}>3</strong> Memory Analysis</span>
                                     <span style={{ color: '#444' }}>|</span>
-                                    <span><strong style={{ color: 'var(--accent-primary)' }}>4</strong> Advanced Queries</span>
+                                    <span><strong style={{ color: 'var(--accent-primary)' }}>4</strong> Guess</span>
                                 </div>
 
                                 <h2>Teams ({teams.length})</h2>
@@ -671,27 +671,35 @@ const AdminPanel = () => {
                                                             alignItems: 'center',
                                                             fontSize: '0.85rem',
                                                             fontFamily: 'monospace',
-                                                            color: '#00ffcc'
                                                         }}>
-                                                            {(team.round_sequence || [1, 2, 3, 4]).map((round, idx) => (
-                                                                <React.Fragment key={idx}>
-                                                                    <span style={{
-                                                                        background: idx === 0 ? '#00ff41' : 'rgba(0, 255, 204, 0.1)',
-                                                                        color: idx === 0 ? '#000' : '#00ffcc',
-                                                                        padding: '2px 6px',
-                                                                        borderRadius: '3px',
-                                                                        fontWeight: idx === 0 ? 'bold' : 'normal',
-                                                                        border: `1px solid ${idx === 0 ? '#00ff41' : '#00ffcc'}`
-                                                                    }}>
-                                                                        {round}
-                                                                    </span>
-                                                                    {idx < 3 && <span style={{ color: '#666' }}>→</span>}
-                                                                </React.Fragment>
-                                                            ))}
+                                                            {(team.round_sequence || [1, 2, 3, 4]).map((round, idx) => {
+                                                                const currentRankIdx = team.current_round - 1; // 0-based
+                                                                const isActive = idx === currentRankIdx;
+                                                                const isDone = idx < currentRankIdx;
+                                                                const isFinished = team.current_round > 4;
+                                                                return (
+                                                                    <React.Fragment key={idx}>
+                                                                        <span style={{
+                                                                            background: isFinished ? 'rgba(0,255,65,0.15)' : isActive ? '#00ff41' : isDone ? 'rgba(0,255,65,0.08)' : 'rgba(0,255,204,0.06)',
+                                                                            color: isFinished ? '#00ff41' : isActive ? '#000' : isDone ? '#00aa44' : '#446677',
+                                                                            padding: '2px 7px',
+                                                                            borderRadius: '3px',
+                                                                            fontWeight: isActive ? 'bold' : 'normal',
+                                                                            border: `1px solid ${isFinished ? '#00ff41' : isActive ? '#00ff41' : isDone ? 'rgba(0,255,65,0.3)' : 'rgba(0,255,204,0.15)'}`,
+                                                                            textDecoration: isDone ? 'line-through' : 'none',
+                                                                            opacity: (!isActive && !isDone && !isFinished) ? 0.5 : 1,
+                                                                            transition: 'all 0.3s ease'
+                                                                        }}>
+                                                                            {round}
+                                                                        </span>
+                                                                        {idx < 3 && <span style={{ color: isDone || isFinished ? '#336633' : '#333' }}>→</span>}
+                                                                    </React.Fragment>
+                                                                );
+                                                            })}
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        {team.current_round >= 100 ? (
+                                                        {team.current_round > 4 ? (
                                                             <span style={{
                                                                 background: '#FFD700',
                                                                 color: '#000',
@@ -710,7 +718,7 @@ const AdminPanel = () => {
                                                     <td className="score">{team.total_score}</td>
                                                     <td>
                                                         <span className={`status-badge ${team.is_active ? 'active' : 'inactive'}`}>
-                                                            {team.is_active ? '✅ Active' : '❌ Inactive'}
+                                                            {team.is_active ? 'Active' : 'Inactive'}
                                                         </span>
                                                     </td>
                                                     <td className="actions">
