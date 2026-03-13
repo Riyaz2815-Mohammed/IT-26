@@ -57,11 +57,10 @@ export const ROUND4_STAGES = [
 ];
 
 export const TEAM_DARES = [
-    "Propose to a friend in another team dramatically.",
-    "Do 10 synchronized sit-ups as a team.",
+    "Shout your team name as loud as you can, three times!",
+    "Do 5 synchronized sit-ups as a team.",
     "Moonwalk across the room.",
-    "Sing the chorus of a pop song loudly.",
-    "Do a quick 10-second team dance."
+    "Recite 3 Thirukkural couplets from memory!"
 ];
 
 export const ROUND4_CODE = 'TRACE-8124';
