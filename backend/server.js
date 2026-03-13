@@ -792,22 +792,31 @@ app.post('/api/game/validate-code', async (req, res) => {
 // Get Leaderboard (Live)
 app.get('/api/leaderboard/live', async (req, res) => {
     try {
-        // Fetch teams with their raw scores
+        // Fetch teams with their raw scores AND round sequence
         const { rows: teams } = await pool.query(`
             SELECT 
                 t.team_id, 
                 t.team_name, 
                 t.total_score,
-                t.current_round, -- This is effectively the "Rank/Progress", e.g. 1st round, 2nd round...
-                t.current_stage
+                t.current_round,
+                t.current_stage,
+                t.round_sequence
             FROM teams t
             WHERE t.is_active = TRUE
         `);
 
-        // Get total time stats for tie-breaking
+        // ACCURATE TIME: Use MIN(started_at) to MAX(completed_at) from team_progress
+        // This gives true wall-clock elapsed time from first action to last completion.
+        // Summing stage times is inaccurate because retries stack and inter-stage breaks are excluded.
         const { rows: stats } = await pool.query(`
-            SELECT team_id, SUM(video_time_taken) as total_time
-            FROM submissions GROUP BY team_id
+            SELECT 
+                team_id,
+                EXTRACT(EPOCH FROM (
+                    COALESCE(MAX(completed_at), NOW()) - MIN(started_at)
+                ))::int as total_time
+            FROM team_progress
+            WHERE started_at IS NOT NULL
+            GROUP BY team_id
         `);
 
         const statsMap = stats.reduce((acc, row) => {
@@ -818,26 +827,33 @@ app.get('/api/leaderboard/live', async (req, res) => {
         // Construct Leaderboard Data
         const leaderboard = teams.map(team => {
             const teamTotalTime = statsMap[team.team_id] || 0;
+            const sequence = team.round_sequence || [1, 2, 3, 4];
+
+            // Compute the actual current game round from sequence
+            let displayRound = null;
+            const rankIdx = team.current_round - 1; // 0-based
+            if (team.current_round > 4) {
+                displayRound = null; // Finished
+            } else if (rankIdx >= 0 && rankIdx < sequence.length) {
+                displayRound = sequence[rankIdx];
+            }
 
             return {
                 id: team.team_id,
                 name: team.team_name,
                 score: team.total_score,
-                progress: team.current_round,
+                progress: team.current_round,       // rank (1-5)
+                displayRound: displayRound,          // actual game round number
                 stage: team.current_stage,
-                timeTaken: teamTotalTime
+                timeTaken: teamTotalTime,            // seconds, correct only
+                roundSequence: sequence
             };
         });
 
         // Sort Leaderboard
         leaderboard.sort((a, b) => {
-            // 1. Score (High to Low)
             if (b.score !== a.score) return b.score - a.score;
-
-            // 2. Time Taken (Low to High) - Faster is better (Primary Tie-Breaker)
             if (a.timeTaken !== b.timeTaken) return a.timeTaken - b.timeTaken;
-
-            // 3. Progress (High to Low) - Who is further ahead?
             if (b.progress !== a.progress) return b.progress - a.progress;
             return b.stage - a.stage;
         });
